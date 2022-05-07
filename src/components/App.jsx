@@ -5,8 +5,10 @@ import contactsDefault from './ContactsList.json';
 import Section from './Section'
 import Phonebook from './Phonebook'
 import Contacts from './Contacts'
+import Filter from './Filter'
 
 const INITIAL_STATE = {
+  filter: '',
   name: '',
   number: '',
 }
@@ -15,27 +17,31 @@ export class App extends Component {
 
   state = {
     contacts: contactsDefault,
+    filter: '',
     name: '',
     number: '',
   }
   handleChange = (event) => {
     const { name, value } = event.target;
-    // console.log("name:", name, "Value:", value);
     this.setState({ [name]: value });
   }
   handleSubmit = (event) => {
     event.preventDefault();
+    console.log(event);
     this.addNewContact();
     this.reset();
-    console.log(this.state);
   }
   addNewContact = () => {
-    this.setState(({ contacts, ...data }) => {
+    this.setState(({ contacts, name, number }) => {
       const newContactsArray = [...contacts];
 
       const personId = nanoid();
-      data.id = personId;
-      newContactsArray.unshift(data);
+      // id = personId;
+      newContactsArray.unshift({
+        "id": personId,
+        "name": name,
+        "number": number,
+      });
 
       return {
         contacts: newContactsArray
@@ -45,7 +51,13 @@ export class App extends Component {
   reset = () => {
     this.setState(() => ({ ...INITIAL_STATE }))
   }
-
+  filterContacts() {
+    if (this.state.filter === '') {
+      return this.state.contacts;
+    }
+    const filteredArray = this.state.contacts.filter((item) => item.name.toLowerCase().includes(this.state.filter.toLowerCase()))
+    return filteredArray;
+  }
   render() {
     // console.log(this.state);
     return (
@@ -54,7 +66,8 @@ export class App extends Component {
           <Phonebook options={this.state} onChangeInput={this.handleChange} onSubmitForm={this.handleSubmit} />
         </Section>
         <Section title="Contacts">
-          <Contacts options={this.state} />
+          <Filter options={this.state} onChangeInput={this.handleChange} />
+          <Contacts contacts={this.filterContacts()} />
         </Section>
       </>
     );

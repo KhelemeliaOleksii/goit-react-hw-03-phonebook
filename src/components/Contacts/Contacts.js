@@ -2,7 +2,7 @@ import { Component } from "react";
 
 class Contacts extends Component {
     render() {
-        const { contacts } = this.props.options;
+        const { contacts } = this.props;
         return (
             <ul className="List">
                 {contacts.map((item) => {
