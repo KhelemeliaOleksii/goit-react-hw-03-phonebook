@@ -1,9 +1,14 @@
 import { Component } from 'react';
+import { nanoid } from 'nanoid';
+
+import contactsDefault from './ContactsList.json';
+import Section from './Section'
 import Phonebook from './Phonebook'
-import contactsDefault from './Phonebook/Phonebook.json';
+import Contacts from './Contacts'
 
 const INITIAL_STATE = {
   name: '',
+  number: '',
 }
 
 export class App extends Component {
@@ -11,6 +16,7 @@ export class App extends Component {
   state = {
     contacts: contactsDefault,
     name: '',
+    number: '',
   }
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -21,12 +27,16 @@ export class App extends Component {
     event.preventDefault();
     this.addNewContact();
     this.reset();
+    console.log(this.state);
   }
   addNewContact = () => {
-    const { contacts, ...data } = this.state;
-    this.setState((prevState) => {
-      const newContactsArray = [...prevState.contacts];
+    this.setState(({ contacts, ...data }) => {
+      const newContactsArray = [...contacts];
+
+      const personId = nanoid();
+      data.id = personId;
       newContactsArray.unshift(data);
+
       return {
         contacts: newContactsArray
       }
@@ -39,7 +49,14 @@ export class App extends Component {
   render() {
     // console.log(this.state);
     return (
-      <Phonebook options={this.state} onChangeInput={this.handleChange} onSubmitForm={this.handleSubmit} />
+      <>
+        <Section title="Phonebook">
+          <Phonebook options={this.state} onChangeInput={this.handleChange} onSubmitForm={this.handleSubmit} />
+        </Section>
+        <Section title="Contacts">
+          <Contacts options={this.state} />
+        </Section>
+      </>
     );
   }
 };

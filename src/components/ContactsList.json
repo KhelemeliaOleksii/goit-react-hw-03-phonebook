@@ -2,21 +2,21 @@
     {
         "id": "id-1",
         "name": "Eden Clements",
-        "tel": "645-17-79"
+        "number": "645-17-79"
     },
     {
         "id": "id-2",
         "name": "Hermion Klein",
-        "tel": "443-89-12"
+        "number": "443-89-12"
     },
     {
         "id": "id-3",
         "name": "Rosie Simpson",
-        "tel": "459-12-56"
+        "number": "459-12-56"
     },
     {
         "id": "id-4",
         "name": "Eden Clements",
-        "tel": "645-17-79"
+        "number": "645-17-79"
     }
 ]

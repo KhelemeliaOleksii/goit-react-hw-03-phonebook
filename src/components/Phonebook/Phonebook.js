@@ -3,9 +3,10 @@ import { nanoid } from 'nanoid'
 
 class Phonebook extends Component {
     inputNameId = nanoid();
+    inputPhoneId = nanoid();
     render() {
         const { options, onChangeInput, onSubmitForm } = this.props;
-        const { contacts, name } = options;
+        const { name, number } = options;
         return (
             <form className="Phonebook" onSubmit={onSubmitForm}>
                 <label htmlFor={this.inputNameId}>Name</label>
@@ -17,6 +18,17 @@ class Phonebook extends Component {
                     onChange={onChangeInput}
                     id={this.inputNameId}
                     value={name}
+                    required
+                />
+                <label htmlFor={this.inputPhoneId}>Number</label>
+                <input
+                    type="tel"
+                    name="number"
+                    pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                    onChange={onChangeInput}
+                    id={this.inputPhoneId}
+                    value={number}
                     required
                 />
                 <button type="submit">Add contact</button>
