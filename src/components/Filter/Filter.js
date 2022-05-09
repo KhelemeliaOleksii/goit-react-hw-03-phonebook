@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { nanoid } from "nanoid";
-
+import PropTypes from 'prop-types'
 import styles from './Filter.module.css'
 
 class Filter extends Component {
@@ -25,5 +25,10 @@ class Filter extends Component {
 
         )
     }
+}
+
+Filter.propTypes = {
+    filter: PropTypes.string.isRequired,
+    onChangeInput: PropTypes.func.isRequired,
 }
 export default Filter

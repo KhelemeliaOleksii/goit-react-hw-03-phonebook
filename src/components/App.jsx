@@ -18,14 +18,13 @@ export class App extends Component {
 
   addNewContact = (data) => {
     if (this.isContactExist(data)) {
-      const msg = `${data.name}is already in contacts`
+      const msg = `${data.name} is already in contacts`
       alert(msg);
       return;
     }
     this.setState(({ contacts }) => {
       const newContactArray = [...contacts];
       const { name, number } = data;
-
       const personId = nanoid();
       newContactArray.unshift({
         "id": personId,
@@ -75,7 +74,7 @@ export class App extends Component {
         <h1>Phonebook </h1>
         <ContactForm onSubmitForm={this.addNewContact} />
         <h2>Contacts</h2>
-        <Filter options={this.state} onChangeInput={this.handleChange} />
+        <Filter filter={this.state.filter} onChangeInput={this.handleChange} />
         <ContactsList contacts={this.filterContacts()} onClickDelete={this.removeContact} />
       </>
     );

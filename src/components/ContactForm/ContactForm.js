@@ -1,5 +1,6 @@
 import { Component } from "react";
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types'
 
 import styles from './ContactForm.module.css'
 
@@ -26,7 +27,9 @@ class Phonebook extends Component {
             data[entry[0]] = entry[1]
         }
 
+        //send data to parent component
         this.props.onSubmitForm(data);
+
         this.reset();
     }
     reset = () => {
@@ -62,5 +65,9 @@ class Phonebook extends Component {
         )
     }
 };
+
+Phonebook.propTypes = {
+    onSubmitForm: PropTypes.func.isRequired,
+}
 
 export default Phonebook;
