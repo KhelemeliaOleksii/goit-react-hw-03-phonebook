@@ -1,10 +1,12 @@
 import { Component } from "react";
 
-class Contacts extends Component {
+import styles from './ContactsList.module.css'
+
+class ContactsList extends Component {
     render() {
-        const { contacts } = this.props;
+        const { contacts, onClickDelete } = this.props;
         return (
-            <ul className="List">
+            <ul className={styles.List}>
                 {contacts.map((item) => {
                     const { id, name, number } = item;
                     return (
@@ -13,6 +15,7 @@ class Contacts extends Component {
                         >
                             <span>{name} : </span>
                             <span>{number} </span>
+                            <button type="button" onClick={() => onClickDelete(id)}> Delete</button>
                         </li>
                     )
                 })}
@@ -21,4 +24,4 @@ class Contacts extends Component {
     }
 };
 
-export default Contacts;
+export default ContactsList;
