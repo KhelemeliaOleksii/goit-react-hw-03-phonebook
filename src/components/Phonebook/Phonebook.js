@@ -4,8 +4,13 @@ import { nanoid } from 'nanoid'
 class Phonebook extends Component {
     inputNameId = nanoid();
     inputPhoneId = nanoid();
+    onChangeInput = (event) => {
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+    }
     render() {
         const { options, onChangeInput, onSubmitForm } = this.props;
+        // const { options, onSubmitForm, name, number } = this.props;
         const { name, number } = options;
         return (
             <form className="Phonebook" onSubmit={onSubmitForm}>
