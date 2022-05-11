@@ -8,12 +8,15 @@ const INITIAL_STATE = {
     name: '',
     number: '',
 }
-class Phonebook extends Component {
+class ContactForm extends Component {
     inputNameId = nanoid();
     inputPhoneId = nanoid();
     state = {
         name: '',
         number: '',
+    }
+    static propTypes = {
+        onSubmitForm: PropTypes.func.isRequired,
     }
     onChangeInput = (event) => {
         const { name, value } = event.target;
@@ -66,8 +69,5 @@ class Phonebook extends Component {
     }
 };
 
-Phonebook.propTypes = {
-    onSubmitForm: PropTypes.func.isRequired,
-}
 
-export default Phonebook;
+export default ContactForm;
