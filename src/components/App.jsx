@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
-import contactsDefault from './ContactsList.json';
+// import contactsDefault from './ContactsList.json';
 import ContactForm from './ContactForm'
 import ContactsList from './ContactList'
 import Filter from './Filter'
@@ -12,10 +12,19 @@ const INITIAL_STATE = {
 
 export class App extends Component {
   state = {
-    contacts: contactsDefault,
+    contacts: [],
     filter: '',
   }
-
+  componentDidMount() {
+    const dataLocalStorage = localStorage.getItem("contacts");
+    const dataParse = JSON.parse(dataLocalStorage);
+    this.setState({ contacts: dataParse });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+    }
+  }
   addNewContact = (data) => {
     if (this.isContactExist(data)) {
       const msg = `${data.name} is already in contacts`
